@@ -42,6 +42,12 @@ export class BookComponent implements OnInit {
 
   onSubmit() {
     console.log(ValidateBookForm(this.bookForm.value));
+    const reservation = {
+      reservedField: "Field Name",
+      startingTime: this.bookForm.value.bookFrom,
+      endTime: this.bookForm.value.bookTo,
+      reservingUserId: "User Id Here"
+    };
     console.log(this.bookForm.value);
   }
 }

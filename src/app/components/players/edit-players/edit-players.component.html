@@ -1,0 +1,79 @@
+<div class="container " *ngIf="editForm">
+  <h2>Edit</h2>
+  <div *ngIf="player">
+    <form class="form-group" [formGroup]="editForm" (ngSubmit)="onSubmit()">
+      <input
+        type="text"
+        placeholder="Name"
+        class="form-control"
+        formControlName="name"
+      />
+      <span *ngIf="!editForm.get('name').valid && editForm.get('name').touched"
+        >Please enter a valid name!</span
+      >
+
+      <input
+        type="text"
+        placeholder="Games"
+        class="form-control"
+        formControlName="games"
+      />
+      <span
+        *ngIf="!editForm.get('games').valid && editForm.get('games').touched"
+        >Please enter a valid games!</span
+      >
+
+      <input
+        type="text"
+        placeholder="Goals"
+        class="form-control"
+        formControlName="goals"
+      />
+      <span
+        *ngIf="!editForm.get('goals').valid && editForm.get('goals').touched"
+        >Please enter a valid goals!</span
+      >
+
+      <input
+        type="text"
+        placeholder="Assists"
+        class="form-control"
+        formControlName="assists"
+      />
+      <span
+        *ngIf="
+          !editForm.get('assists').valid && editForm.get('assists').touched
+        "
+        >Please enter a valid assists!</span
+      >
+
+      <input
+        type="text"
+        placeholder="Age"
+        class="form-control"
+        formControlName="age"
+      />
+      <span *ngIf="!editForm.get('age').valid && editForm.get('age').touched"
+        >Please enter a valid age!</span
+      >
+
+      <input
+        type="text"
+        placeholder="Picture"
+        class="form-control"
+        formControlName="picture"
+      />
+      <span
+        *ngIf="
+          !editForm.get('picture').valid && editForm.get('picture').touched
+        "
+        >Please enter a valid picture!</span
+      >
+
+      <button type="submit" class="btn btn-info">Save</button>
+      <button class="btn btn-danger" type="button" (click)="delete()">
+        Delete
+      </button>
+    </form>
+  </div>
+</div>

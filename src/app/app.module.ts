@@ -23,6 +23,7 @@ import { PlayersService } from "./services/players.service";
 // import { EditPlayerComponent } from "./components/players/edit-player/edit-player.component";
 import { BookComponent } from "./components/football-fields/book/book.component";
 import { ReservationService } from "./services/reservations.service";
+import { EditPlayersComponent } from './components/players/edit-players/edit-players.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { ReservationService } from "./services/reservations.service";
     AllPlayersComponent,
     CreatePlayerComponent,
     // EditPlayerComponent,
-    BookComponent
+    BookComponent,
+    EditPlayersComponent
   ],
   imports: [
     BrowserModule,

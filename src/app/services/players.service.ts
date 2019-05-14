@@ -2,9 +2,11 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 
-import { Player } from "../models/players/player.model";
+import { Player } from "../models/players/player";
 
 import { Router } from "@angular/router";
+
+import { IPlayer } from "../models/players/player.model";
 
 import { AppConf } from "../core/conf";
 
@@ -16,27 +18,20 @@ export class PlayersService {
 
   uri = AppConf.server + AppConf.api.players;
 
-  private player: Player = {
-    name: "",
-    age: 0,
-    games: 0,
-    goals: 0,
-    assists: 0
-  };
+  private player: IPlayer = new Player();
 
   getAll(): Observable<any> {
     return this.http.get(`${this.uri}/`);
   }
 
-  getById() {
-    return this.http.get(`${this.uri}/id`);
+  getById(id: string) {
+    return this.http.get(`${this.uri}/${id}`);
   }
 
-  edit(player) {
+  edit(id, player) {
     this.player = player;
-
-    this.http.put(`${this.uri}/id`, this.player).subscribe(res => {
-      alertify.success("Your edited player successfully!");
+    this.http.put(`${this.uri}/${id}`, this.player).subscribe(res => {
+      alertify.success("You edited player successfully!");
       // I have to find why this doesn't work
       this.router.navigate(["/players/all"]);
     });
@@ -50,5 +45,22 @@ export class PlayersService {
       alertify.success("Your added player successfully!");
       this.router.navigate(["/players/all"]);
     });
+  }
+
+  deletePlayer(playerId) {
+    let id = playerId;
+    alertify.confirm(
+      "Confirm Title",
+      "Do you want to delete ?",
+      () => {
+        this.http.delete(`${this.uri}/${id}`).subscribe(res => {
+          alertify.success("You deleted the player!");
+          this.router.navigate(["/players/all"]);
+        });
+      },
+      function() {
+        alertify.error("Cancel");
+      }
+    );
   }
 }
