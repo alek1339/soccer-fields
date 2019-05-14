@@ -1,4 +1,5 @@
 import { BrowserModule } from "@angular/platform-browser";
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule } from "@angular/core";
 
 import { HttpClientModule } from "@angular/common/http";
@@ -23,6 +24,8 @@ import { PlayersService } from "./services/players.service";
 // import { EditPlayerComponent } from "./components/players/edit-player/edit-player.component";
 import { BookComponent } from "./components/football-fields/book/book.component";
 import { ReservationService } from "./services/reservations.service";
+import { BookCalendarComponent } from './components/football-fields/book-calendar/book-calendar.component';
+import {FullCalendarModule} from 'primeng/fullcalendar';
 
 @NgModule({
   declarations: [
@@ -40,14 +43,17 @@ import { ReservationService } from "./services/reservations.service";
     AllPlayersComponent,
     CreatePlayerComponent,
     // EditPlayerComponent,
-    BookComponent
+    BookComponent,
+    BookCalendarComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    FullCalendarModule
   ],
   providers: [PlayersService, ReservationService],
   bootstrap: [AppComponent]

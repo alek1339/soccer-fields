@@ -6,7 +6,7 @@
       <p>Address: {{ field.address }}</p>
       <p>Tel: {{ field.tel }}</p>
       <p>Open From: {{ field.openFrom }} To: {{ field.openTo }}</p>
-      <div *ngFor="let pic of field.photos" class="block">
+      <div *ngFor="let pic of field['photos']" class="block">
         <img src="{{ pic }}" alt="" width="200px" />
       </div>
       <form [formGroup]="bookForm" (ngSubmit)="onSubmit()" *ngIf="bookForm">
@@ -25,5 +25,8 @@
         <button type="submit" class="btn btn-success">Book</button>
       </form>
     </div>
+  </div>
+  <div class="row">
+    <app-book-calendar></app-book-calendar>
   </div>
 </div>
