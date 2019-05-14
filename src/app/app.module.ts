@@ -22,6 +22,7 @@ import { CreatePlayerComponent } from "./components/players/create-player/create
 import { PlayersService } from "./services/players.service";
 // import { EditPlayerComponent } from "./components/players/edit-player/edit-player.component";
 import { BookComponent } from "./components/football-fields/book/book.component";
+import { ReservationService } from "./services/reservations.service";
 
 @NgModule({
   declarations: [
@@ -48,7 +49,7 @@ import { BookComponent } from "./components/football-fields/book/book.component"
     HttpClientModule,
     AppRoutingModule
   ],
-  providers: [PlayersService],
+  providers: [PlayersService, ReservationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

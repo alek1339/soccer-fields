@@ -12,9 +12,6 @@ export function ValidateBookForm({ bookFrom, bookTo }) {
     }
   ];
 
-  //   if (bookFrom > 7 && bookTo < 23) {
-  //   }
-
   return checkFieldAvailability(bookFrom, bookTo, reservations);
 
   function checkFieldAvailability(bookFrom, bookTo, reservations) {
@@ -28,7 +25,7 @@ export function ValidateBookForm({ bookFrom, bookTo }) {
         ) &&
         _.inRange(
           bookTo,
-          reservation.reservedFrom - 1,
+          reservation.reservedFrom + 1,
           reservation.reservedTo + 1
         )
       ) {
@@ -36,6 +33,11 @@ export function ValidateBookForm({ bookFrom, bookTo }) {
         return false;
       }
     }
+    // Check for correct hours
+    if (bookFrom < 7 || bookTo > 23 || bookFrom >= bookTo) {
+      return false;
+    }
+
     return true;
   }
 }

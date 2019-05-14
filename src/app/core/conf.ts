@@ -7,6 +7,7 @@ export const AppConf = {
   api: {
     users: "/users",
     fields: "/fields",
-    players: "/players"
+    players: "/players",
+    reservations: "/reservations"
   }
 };

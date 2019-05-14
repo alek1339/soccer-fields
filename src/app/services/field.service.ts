@@ -46,7 +46,6 @@ export class FieldService {
 
   edit(id, field) {
     this.field = field;
-    console.log("here");
     this.http.put(`${this.uri}/${id}`, this.field).subscribe(res => {
       alertify.success("Your edited field successfully!");
       // I have to find why this doesn't work
@@ -55,30 +54,28 @@ export class FieldService {
     // this.router.navigate(["/football-fields/all"]);
   }
 
-  deleteField(id) {
-    const x = id;
-    console.log(x);
+  deleteField() {
+    this.http.post(`${this.uri}/delete/`, this.field).subscribe(res => {
+      this.router.navigate(["/football-fields/all"]);
+    });
 
-    // this.http.post(`${this.uri}/delete/${id}`, this.field).subscribe(res => {
-    //   this.router.navigate(["/football-fields/all"]);
-    // });
+    alertify.confirm(
+      "Confirm Title",
+      "Do you want to delete ?",
+      () => {
+        const id: string = this.route.snapshot.params.id;
+        this.http
+          .post(`${this.uri}/delete/${id}`, this.field)
+          .subscribe(res => {
+            alertify.success("You deleted the field!");
+            this.router.navigate(["/football-fields/all"]);
+          });
+      },
+      function() {
+        alertify.error("Cancel");
+      }
+    );
 
-    // alertify.confirm(
-    //   "Confirm Title",
-    //   "Do you want to delete ?",
-    //   () => {
-    //     this.http
-    //       .post(`${this.uri}/delete/${id}`, this.field)
-    //       .subscribe(res => {
-    //         alertify.success("You deleted the field!");
-    //         this.router.navigate(["/football-fields/all"]);
-    //       });
-    //   },
-    //   function() {
-    //     alertify.error("Cancel");
-    //   }
-    // );
-
-    // this.router.navigate(["/football-fields/all"]);
+    this.router.navigate(["/football-fields/all"]);
   }
 }

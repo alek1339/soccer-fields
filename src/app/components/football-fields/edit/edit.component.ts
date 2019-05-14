@@ -55,9 +55,8 @@ export class EditComponent implements OnInit {
     this.fieldService.edit(id, this.editForm.value);
   }
 
-  deleteForm(id) {
-    console.log(id);
-    this.fieldService.deleteField(id);
+  deleteForm() {
+    this.fieldService.deleteField();
   }
 
   onAddPicture() {
