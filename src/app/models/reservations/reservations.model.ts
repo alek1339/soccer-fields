@@ -1,4 +1,5 @@
 import { IReservation } from "./resetvations";
+import { IField } from "../fields/football-field";
 
 export class Field implements IField {
   name: string;
