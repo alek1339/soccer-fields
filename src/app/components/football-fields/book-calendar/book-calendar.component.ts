@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { EventInput } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
@@ -14,39 +14,36 @@ export class BookCalendarComponent implements OnInit {
 
   @ViewChild('calendar') calendarComponent: FullCalendarComponent; // the #calendar in the template
 
+  @Input() startHour: number ;
+  @Input() endHour: number ;
+
   calendarVisible = true;
   calendarPlugins = [dayGridPlugin, timeGridPlugin, interactionPlugin];
   calendarWeekends = true;
-  calendarEvents: EventInput[] = [
-    { title: 'Event Now', start: new Date(), end: new Date() }
-  ];
+  calendarEvents: EventInput[] = [];
 
   constructor() { }
 
   ngOnInit() {
+    console.log(new Date)
   }
 
-  ngOnChanges() {
-    console.log(this.calendarComponent)
-  }
-
-
-
-  handleDateClick(arg) {
-
-    //console.log(arg)
+  bookField(arg) {
 
     if (confirm('Would you like to add an event to ' + arg.date + ' ?')) {
+      let startTime =  new Date(arg.date);
       let endtime = new Date(arg.date);
-      endtime.setHours( endtime.getHours() + 2 );
+      startTime.setHours( this.startHour )
+      endtime.setHours( this.endHour );
 
       this.calendarEvents = this.calendarEvents.concat({ // add new event data. must create new array
         title: 'New Event',
-        start: arg.date,
+        start: startTime,
         end:  endtime,
         allDay: false
       })
     }
+
   }
 
 }

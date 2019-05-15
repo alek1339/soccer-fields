@@ -20,6 +20,11 @@ export class BookComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
+  // startHour and endHour add to the date in calendar component
+  startHour: number;
+  endHour: number;
+
+  displayCalendar: boolean = false;
   bookForm: FormGroup;
   field: IField = new Field();
 
@@ -41,6 +46,16 @@ export class BookComponent implements OnInit {
   }
 
   onSubmit() {
+
+    // if form valid set start and end integers iton hour
+    //format and send to calendar component
+    if (ValidateBookForm(this.bookForm.value)) {
+      this.displayCalendar = this.bookForm.value || false;
+
+      this.startHour = this.bookForm.value.bookFrom;
+      this.endHour = this.bookForm.value.bookTo;
+    }
+
     console.log(ValidateBookForm(this.bookForm.value));
     console.log(this.bookForm.value);
   }
