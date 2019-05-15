@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { Player } from "@angular/core/src/render3/interfaces/player";
 
 import { PlayersService } from "../../../services/players.service";
 import { Auth } from "../../../core/auth";
@@ -11,7 +12,7 @@ import { Auth } from "../../../core/auth";
 export class AllPlayersComponent implements OnInit {
   constructor(public playersService: PlayersService, public auth: Auth) {}
 
-  players: Object;
+  players: Player[] = [];
   ngOnInit() {
     this.playersService.getAll().subscribe(data => {
       this.players = data;

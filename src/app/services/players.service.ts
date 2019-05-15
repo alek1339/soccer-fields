@@ -28,12 +28,27 @@ export class PlayersService {
     return this.http.get(`${this.uri}/`);
   }
 
+  getById() {
+    return this.http.get(`${this.uri}/id`);
+  }
+
+  edit(player) {
+    this.player = player;
+
+    this.http.put(`${this.uri}/id`, this.player).subscribe(res => {
+      alertify.success("Your edited player successfully!");
+      // I have to find why this doesn't work
+      this.router.navigate(["/players/all"]);
+    });
+    // this.router.navigate(["/players/all"]);
+  }
+
   add(player) {
     this.player = player;
     console.log(this.player);
     this.http.post(`${this.uri}/add`, this.player).subscribe(res => {
       alertify.success("Your added player successfully!");
-      this.router.navigate(["/football-fields/all"]);
+      this.router.navigate(["/players/all"]);
     });
   }
 }

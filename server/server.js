@@ -8,6 +8,7 @@ const express = require("express"),
 const users = require("./routes/users");
 const fields = require("./routes/fields");
 const players = require("./routes/players");
+const reservations = require("./routes/reservations");
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.DB, { useNewUrlParser: true }).then(
@@ -26,6 +27,7 @@ app.use(cors());
 app.use("/users", users);
 app.use("/fields", fields);
 app.use("/players", players);
+app.use("/reservations", reservations);
 
 const port = process.env.PORT || 4000;
 

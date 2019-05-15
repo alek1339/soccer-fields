@@ -1,0 +1,32 @@
+<div class="container">
+  <h1>Book now</h1>
+  <div class="row" *ngIf="field">
+    <div class="col-lg-6">
+      <p>{{ field.name }}</p>
+      <p>Address: {{ field.address }}</p>
+      <p>Tel: {{ field.tel }}</p>
+      <p>Open From: {{ field.openFrom }} To: {{ field.openTo }}</p>
+      <div *ngFor="let pic of field['photos']" class="block">
+        <img src="{{ pic }}" alt="" width="200px" />
+      </div>
+      <form [formGroup]="bookForm" (ngSubmit)="onSubmit()" *ngIf="bookForm">
+        <label for="open_from" class="badge badge-secondary">Book From:</label>
+        <select formControlName="bookFrom">
+          <option value="{{ item }}" *ngFor="let item of availableHours"
+            >{{ item }}:00</option
+          >
+        </select>
+        <label for="open_to" class="badge badge-secondary">To:</label>
+        <select formControlName="bookTo">
+          <option value="{{ item }}" *ngFor="let item of availableHours"
+            >{{ item }}:00</option
+          >
+        </select>
+        <button type="submit" class="btn btn-success">Book</button>
+      </form>
+    </div>
+  </div>
+  <div class="row" *ngIf="displayCalendar">
+    <app-book-calendar [startHour]="startHour" [endHour]="endHour"></app-book-calendar>
+  </div>
+</div>

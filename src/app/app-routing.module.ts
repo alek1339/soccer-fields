@@ -14,6 +14,7 @@ import { CreatePlayerComponent } from "./components/players/create-player/create
 import { ReservationsComponent } from "./components/admin/reservations/reservations.component";
 import { WellcomeComponent } from "./components/wellcome/wellcome.component";
 import { AdminPanelComponent } from "./components/admin/admin-panel/admin-panel.component";
+import { BookComponent } from "./components/football-fields/book/book.component";
 
 import { AdminGuard } from "./guards/admin.guard";
 import { LoggedGuard } from "./guards/logged.guard";
@@ -52,6 +53,7 @@ const routes: Routes = [
   },
   // { path: "football-fields/edit", component: EditComponent },
   { path: "football-fields/all", component: AllComponent },
+  { path: "football-fields/book/:id", component: BookComponent },
   {
     path: "admin/reservations",
     component: ReservationsComponent,

@@ -11,6 +11,7 @@ export class Field implements IField {
     this.name = field.name || null;
     this.address = field.address || null;
     this.tel = field.tel || null;
+    this.openFrom = field.openFrom || null;
+    this.openTo = field.openTo || null;
   }
 }
-let field = new Field();

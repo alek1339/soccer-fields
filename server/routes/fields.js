@@ -38,10 +38,11 @@ router.post("/add", (req, res) => {
 // @route   GET server/fields/id
 // @desc    Get Single field
 // @access  Public
-router.get("/id", (req, res) => {
-  let lastIndexOfId = req.headers.referer.lastIndexOf("id");
-  const id = req.headers.referer.slice(lastIndexOfId + 3);
+router.get("/:id", (req, res) => {
+  // let lastIndexOfId = req.headers.referer.lastIndexOf("id");
+  // const id = req.headers.referer.slice(lastIndexOfId + 3);
 
+  const id = req.params.id;
   Field.findById(id)
     .sort({ date: -1 })
     .then(posts => res.json(posts))
@@ -51,9 +52,13 @@ router.get("/id", (req, res) => {
 // @route  POST server/fields/edit
 // @desc Edit field
 // @access Private
-router.put("/id", (req, res) => {
-  let lastIndexOfId = req.headers.referer.lastIndexOf("id");
-  const id = req.headers.referer.slice(lastIndexOfId + 3);
+router.put("/:id", (req, res) => {
+  // let lastIndexOfId = req.headers.referer.lastIndexOf("id");
+  // const id = req.headers.referer.slice(lastIndexOfId + 3);
+
+  const id = req.params.id;
+  console.log(id);
+
   Field.findByIdAndUpdate(id, { $set: req.body }, function(err, result) {
     if (err) {
       console.log("Error:" + err);
@@ -67,9 +72,11 @@ router.put("/id", (req, res) => {
 // @desc Delete field
 // @access Private
 
-router.delete("/id", (req, res) => {
-  let lastIndexOfId = req.headers.referer.lastIndexOf("id");
-  const id = req.headers.referer.slice(lastIndexOfId + 3);
+router.delete(":id", (req, res) => {
+  // let lastIndexOfId = req.headers.referer.lastIndexOf("id");
+  // const id = req.headers.referer.slice(lastIndexOfId + 3);
+  const id = req.params.id;
+  console.log(id);
 
   Field.findByIdAndRemove(id, (err, todo) => {
     // As always, handle any potential errors:

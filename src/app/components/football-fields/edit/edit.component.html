@@ -1,12 +1,7 @@
 <div class="container " *ngIf="editForm">
   <h2>Edit</h2>
   <div *ngIf="field">
-    <form
-      action=""
-      class="form-group"
-      [formGroup]="editForm"
-      (ngSubmit)="onSubmit()"
-    >
+    <form class="form-group" [formGroup]="editForm" (ngSubmit)="onSubmit()">
       <input
         type="text"
         placeholder="Field Name"
@@ -70,7 +65,7 @@
       <button
         class="btn btn-danger"
         type="button"
-        (click)="this.fieldService.deleteField()"
+        (click)="this.fieldService.deleteField(field)"
       >
         Delete
       </button>

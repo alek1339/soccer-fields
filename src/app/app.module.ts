@@ -1,4 +1,5 @@
 import { BrowserModule } from "@angular/platform-browser";
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { NgModule } from "@angular/core";
 
 import { HttpClientModule } from "@angular/common/http";
@@ -20,6 +21,11 @@ import { AdminPanelComponent } from "./components/admin/admin-panel/admin-panel.
 import { AllPlayersComponent } from "./components/players/all-players/all-players.component";
 import { CreatePlayerComponent } from "./components/players/create-player/create-player.component";
 import { PlayersService } from "./services/players.service";
+// import { EditPlayerComponent } from "./components/players/edit-player/edit-player.component";
+import { BookComponent } from "./components/football-fields/book/book.component";
+import { ReservationService } from "./services/reservations.service";
+import { BookCalendarComponent } from './components/football-fields/book-calendar/book-calendar.component';
+import {FullCalendarModule} from '@fullcalendar/angular';
 
 @NgModule({
   declarations: [
@@ -35,16 +41,21 @@ import { PlayersService } from "./services/players.service";
     WellcomeComponent,
     AdminPanelComponent,
     AllPlayersComponent,
-    CreatePlayerComponent
+    CreatePlayerComponent,
+    // EditPlayerComponent,
+    BookComponent,
+    BookCalendarComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    FullCalendarModule
   ],
-  providers: [PlayersService],
+  providers: [PlayersService, ReservationService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
