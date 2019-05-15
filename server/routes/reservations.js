@@ -17,6 +17,8 @@ router.post("/add", (req, res) => {
     reservingUserId: req.body.reservingUserId
   });
 
+  console.log(newReservation)
+
   newReservation
     .save()
     .then(Reservation => res.json(Reservation))

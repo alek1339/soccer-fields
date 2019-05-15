@@ -27,6 +27,8 @@ export class ReservationService {
   add(reservation) {
     this.reservation = reservation;
 
+    console.log(reservation)
+
     this.http.post(`${this.uri}/add`, this.reservation).subscribe(res => {
       alertify.success("You added reservation successfully!");
       this.router.navigate(["/football-fields/all"]);

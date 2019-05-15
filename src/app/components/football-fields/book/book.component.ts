@@ -57,27 +57,6 @@ export class BookComponent implements OnInit {
   }
 
   onSubmit() {
-
-    this.setHours();
-    // this.reservationService.getById(this.fieldId).subscribe(data => {
-    //   this.reservations = data;
-
-    //   if (ValidateBookForm(this.bookForm.value, this.reservations)) {
-    //     const reservation = {
-    //       reservedField: this.fieldId,
-    //       startingTime: this.bookForm.value.bookFrom,
-    //       endTime: this.bookForm.value.bookTo,
-    //       reservingUserId: this.auth.getUserId()
-    //     };
-    //     this.reservationService.add(reservation);
-    //   } else {
-    //     alertify.error("You can not make a reservation in this time!");
-    //   }
-    // });
-  }
-
-
-  setHours() {
     this.displayCalendar = this.bookForm.value || false;
     if (this.displayCalendar) {
       this.startHour = this.bookForm.value.bookFrom;

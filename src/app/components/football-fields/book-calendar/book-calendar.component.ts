@@ -27,7 +27,7 @@ export class BookCalendarComponent implements OnInit {
   calendarVisible = true;
   calendarPlugins = [dayGridPlugin, timeGridPlugin, interactionPlugin];
   calendarWeekends = true;
-  calendarEvents: EventInput[] = []; // works only with []  ?
+  calendarEvents: EventInput[] = [];
   fieldId: string = "";
   reservations: IReservation[];
 
@@ -53,20 +53,20 @@ export class BookCalendarComponent implements OnInit {
     if (confirm('Would you like to add an event to ' + arg.date + ' ?')) {
       let startTime =  new Date(arg.date);
       let endTime = new Date(arg.date);
-      startTime.setHours( this.startHour )
+      startTime.setHours( this.startHour );
       endTime.setHours( this.endHour );
 
-      // UI event - display events in calendar
+      // UI only - display events in calendar
       this.calendarEvents = this.calendarEvents.concat({ // add new event data. must create new array
         title: 'New Event',
         start: startTime,
         end:  endTime,
         allDay: false
-      })
+      });
 
       // add reservation to database
       if (startTime && endTime) {
-        this.submitReservation( startTime, endTime, this.fieldId )
+        this.submitReservation( startTime, endTime, this.fieldId );
       }
     }
 
@@ -74,6 +74,7 @@ export class BookCalendarComponent implements OnInit {
 
   // add reservation to database
   submitReservation( start: any, end: any , fId: string ) {
+    console.log(start)
     if (ValidateBookForm( start , end , this.reservations)) {
       const reservation = {
         reservedField: fId,
