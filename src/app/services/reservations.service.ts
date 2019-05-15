@@ -29,7 +29,15 @@ export class ReservationService {
 
     this.http.post(`${this.uri}/add`, this.reservation).subscribe(res => {
       alertify.success("You added reservation successfully!");
-      this.router.navigate(["/reservations/all"]);
+      this.router.navigate(["/football-fields/all"]);
     });
+  }
+
+  getAll(): Observable<any> {
+    return this.http.get(`${this.uri}/`);
+  }
+
+  getById(id: string): Observable<any> {
+    return this.http.get(`${this.uri}/${id}`);
   }
 }

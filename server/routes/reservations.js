@@ -23,4 +23,31 @@ router.post("/add", (req, res) => {
     .catch(err => console.log("Error:" + err));
 });
 
+// @route   GET /server/reservation/get
+// @desc Fetch All Reservations
+// @access  Public
+router.get("/", (req, res) => {
+  Reservation.find()
+    .sort({ date: -1 })
+    .then(posts => res.json(posts))
+    .catch(err =>
+      res.status(404).json({ noreservationsfound: "No reservations found" })
+    );
+});
+
+// @route   GET server/reservations/id
+// @desc    Get Single resetvation
+// @access  Public
+router.get("/:id", (req, res) => {
+  const id = req.params.id;
+  Reservation.find()
+    .where("reservedField")
+    .equals(id)
+    .sort({ date: -1 })
+    .then(fields => res.json(fields))
+    .catch(err =>
+      res.status(404).json({ noreservationsfound: "No resetvation found" })
+    );
+});
+
 module.exports = router;
