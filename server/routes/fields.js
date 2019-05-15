@@ -57,7 +57,6 @@ router.put("/:id", (req, res) => {
   // const id = req.headers.referer.slice(lastIndexOfId + 3);
 
   const id = req.params.id;
-  console.log(id);
 
   Field.findByIdAndUpdate(id, { $set: req.body }, function(err, result) {
     if (err) {
@@ -68,15 +67,14 @@ router.put("/:id", (req, res) => {
   });
 });
 
-// @route  POST server/fields/delete
+// @route  DELETE server/fields/delete
 // @desc Delete field
 // @access Private
 
-router.delete(":id", (req, res) => {
+router.delete("/:id", (req, res) => {
   // let lastIndexOfId = req.headers.referer.lastIndexOf("id");
   // const id = req.headers.referer.slice(lastIndexOfId + 3);
   const id = req.params.id;
-  console.log(id);
 
   Field.findByIdAndRemove(id, (err, todo) => {
     // As always, handle any potential errors:

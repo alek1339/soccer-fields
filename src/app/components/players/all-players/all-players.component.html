@@ -6,7 +6,15 @@
           {{ player.name }}
         </h2>
         <p>{{ player.age }}</p>
-        <button class="btn btn-success" *ngIf="auth.isAdmin()">Edit</button>
+        <img src="{{ player.picture }}" alt="" />
+        <br />
+        <button
+          *ngIf="auth.isAdmin()"
+          routerLink="/players/edit/{{ player._id }}"
+          class="btn btn-success"
+        >
+          Edit!
+        </button>
       </div>
     </div>
   </div>

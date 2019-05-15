@@ -26,6 +26,7 @@ import { BookComponent } from "./components/football-fields/book/book.component"
 import { ReservationService } from "./services/reservations.service";
 import { BookCalendarComponent } from './components/football-fields/book-calendar/book-calendar.component';
 import {FullCalendarModule} from '@fullcalendar/angular';
+import { EditPlayersComponent } from './components/players/edit-players/edit-players.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import {FullCalendarModule} from '@fullcalendar/angular';
     CreatePlayerComponent,
     // EditPlayerComponent,
     BookComponent,
-    BookCalendarComponent
+    BookCalendarComponent,
+    EditPlayersComponent
   ],
   imports: [
     BrowserModule,
