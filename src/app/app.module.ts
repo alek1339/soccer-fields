@@ -25,7 +25,7 @@ import { PlayersService } from "./services/players.service";
 import { BookComponent } from "./components/football-fields/book/book.component";
 import { ReservationService } from "./services/reservations.service";
 import { BookCalendarComponent } from './components/football-fields/book-calendar/book-calendar.component';
-import {FullCalendarModule} from 'primeng/fullcalendar';
+import {FullCalendarModule} from '@fullcalendar/angular';
 
 @NgModule({
   declarations: [
