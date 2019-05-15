@@ -15,7 +15,7 @@
               </div>
             </div>
             <button
-              routerLink="/football-fields/book/{{ field._id }}"
+              [routerLink]="['/football-fields/book/', field._id]"
               class="btn btn-primary"
             >
               Book now
