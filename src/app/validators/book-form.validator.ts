@@ -1,34 +1,29 @@
 import * as _ from "lodash";
 /*
-* @bookFrom - starting date with hour for a field reservation
-* @bookTo - ending date with hour for a field reservation
+* @bookFrom - starting date with local time for a field reservation
+* @bookTo - ending date with local time for a field reservation
 * @allReservations array of reservations from calendar
 */
 
-export function ValidateBookForm( bookFrom, bookTo , allReservations) {
-  let reservations = allReservations;
+export function ValidateBookForm( bookFrom: Date, bookTo: Date , allReservations: any[]) {
+  const reservations = allReservations;
   console.log(reservations);
-  return checkFieldAvailability(bookFrom, bookTo, reservations);
+  const startHourCurrRes = bookFrom.getTime();
+  const endHourCurrRes = bookTo.getTime();
 
-  function checkFieldAvailability(bookFrom, bookTo, reservations) {   // need to remake for Date type
-    // // Check for correct hours
-    // if (bookFrom < 7 || bookTo > 23 || bookFrom >= bookTo) {
-    //   return false;
-    // }
-    // for (let i = 0; i < reservations.length; i++) {
-    //   const reservation = reservations[i];
-    //   const start = Number(reservation.startingTime) - 1;
-    //   const end = Number(reservation.endTime) + 1;
+  // Check for wotking hours
+  if (bookFrom.getHours() < 7 || bookTo.getHours() > 23 || bookFrom.getHours() >= bookTo.getHours()) return false;
 
-    //   if (_.inRange(bookFrom, start, end) && _.inRange(bookTo, start, end)) {
-    //     // There is already a reservation in this hour
-    //     console.log("Book from", bookFrom);
-    //     console.log("===start ", start);
-    //     console.log("===end ", end);
+  // Check for existing reservations
+  reservations.forEach( reservation => {
+    const startHourExistRes = new Date(reservation.startingTime).getTime();
+    const endHourExistRes = new Date(reservation.endTime).getTime();
 
-    //     return false;
-    //   }
-    // }
-    return true;
-  }
+    if (_.inRange(startHourCurrRes, startHourExistRes, endHourExistRes) && _.inRange(endHourCurrRes, startHourExistRes, endHourExistRes)) {
+      return false; // Such a reservation exist
+    }
+
+  } ); //end forEach
+
+  return true;
 }

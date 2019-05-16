@@ -38,14 +38,21 @@ export class BookCalendarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log(new Date)
     this.route.params.subscribe(params => {
       this.fieldId = params["id"];
     });
 
     this.reservationService.getById(this.fieldId).subscribe(data => {
       this.reservations = data;
+      console.log(data);
+      data.map( reservation => {
+        const startTime = new Date(reservation.startingTime);
+        const endTime = new Date(reservation.endTime);
+        this.displayCalendarEvents( startTime, endTime );
+      });
     });
+
+
   }
 
   bookField(arg) {
@@ -56,13 +63,7 @@ export class BookCalendarComponent implements OnInit {
       startTime.setHours( this.startHour );
       endTime.setHours( this.endHour );
 
-      // UI only - display events in calendar
-      this.calendarEvents = this.calendarEvents.concat({ // add new event data. must create new array
-        title: 'New Event',
-        start: startTime,
-        end:  endTime,
-        allDay: false
-      });
+      this.displayCalendarEvents( startTime, endTime); // need to be async after reservation is added to data base
 
       // add reservation to database
       if (startTime && endTime) {
@@ -74,7 +75,6 @@ export class BookCalendarComponent implements OnInit {
 
   // add reservation to database
   submitReservation( start: any, end: any , fId: string ) {
-    console.log(start)
     if (ValidateBookForm( start , end , this.reservations)) {
       const reservation = {
         reservedField: fId,
@@ -86,6 +86,16 @@ export class BookCalendarComponent implements OnInit {
     } else {
       alertify.error("You can not make a reservation in this time!");
     }
+  }
+
+  // Display events in Calendar
+  displayCalendarEvents( startTime: Date, endTime: Date ): void {
+    this.calendarEvents = this.calendarEvents.concat({ // add new event data must create new array
+      title: 'New Event',
+      start: startTime,
+      end:  endTime,
+      allDay: false
+    });
   }
 
 }

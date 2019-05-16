@@ -29,7 +29,7 @@ export class ReservationService {
 
     console.log(reservation)
 
-    this.http.post(`${this.uri}/add`, this.reservation).subscribe(res => {
+    this.http.post(`${this.uri}/add`, this.reservation).subscribe(res => { // move subscribe to book calendar components
       alertify.success("You added reservation successfully!");
       this.router.navigate(["/football-fields/all"]);
     });
