@@ -8,11 +8,11 @@ const ReservationSchema = new Schema({
     required: true
   },
   startingTime: {
-    type: String,
+    type: Date,
     required: true
   },
   endTime: {
-    type: String,
+    type: Date,
     required: true
   },
   reservingUserId: {

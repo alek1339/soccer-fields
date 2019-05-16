@@ -4,6 +4,13 @@ import { EventInput } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction'; // for dateClick
+import { ValidateBookForm } from "../../../validators/book-form.validator";
+import { ReservationService } from "../../../services/reservations.service";
+import { IReservation } from 'src/app/models/reservations/resetvations';
+import { Auth } from "../../../core/auth";
+import alertify from "alertifyjs";
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-book-calendar',
@@ -12,8 +19,6 @@ import interactionPlugin from '@fullcalendar/interaction'; // for dateClick
 })
 export class BookCalendarComponent implements OnInit {
 
-  @ViewChild('calendar') calendarComponent: FullCalendarComponent; // the #calendar in the template
-
   @Input() startHour: number ;
   @Input() endHour: number ;
 
@@ -21,29 +26,76 @@ export class BookCalendarComponent implements OnInit {
   calendarPlugins = [dayGridPlugin, timeGridPlugin, interactionPlugin];
   calendarWeekends = true;
   calendarEvents: EventInput[] = [];
+  fieldId: string = "";
+  reservations: IReservation[];
 
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private reservationService: ReservationService,
+    private auth: Auth
+  ) { }
 
   ngOnInit() {
-    console.log(new Date)
+    this.route.params.subscribe(params => {
+      this.fieldId = params["id"];
+    });
+
+    this.reservationService.getById(this.fieldId).subscribe(data => {
+      this.reservations = data;
+
+      // Populating calendar with existing reservations
+      data.map( reservation => {
+        const startTime = new Date(reservation.startingTime);
+        const endTime = new Date(reservation.endTime);
+        this.displayCalendarEvents( startTime, endTime );
+      });
+    });
+
+
   }
 
   bookField(arg) {
 
     if (confirm('Would you like to add an event to ' + arg.date + ' ?')) {
       let startTime =  new Date(arg.date);
-      let endtime = new Date(arg.date);
-      startTime.setHours( this.startHour )
-      endtime.setHours( this.endHour );
+      let endTime = new Date(arg.date);
+      startTime.setHours( this.startHour );
+      endTime.setHours( this.endHour );
 
-      this.calendarEvents = this.calendarEvents.concat({ // add new event data. must create new array
-        title: 'New Event',
-        start: startTime,
-        end:  endtime,
-        allDay: false
-      })
+      // add reservation to database
+      if (startTime && endTime) {
+        this.submitReservation( startTime, endTime, this.fieldId );
+      }
     }
 
+  }
+
+  // add reservation to database
+  submitReservation( start: Date, end: Date , fId: string ) {
+    if (ValidateBookForm( start , end , this.reservations)) {
+      const reservation = {
+        reservedField: fId,
+        startingTime: start ,
+        endTime: end,
+        reservingUserId: this.auth.getUserId()
+      };
+      this.reservationService.add(reservation).subscribe( res => {
+        this.displayCalendarEvents( start, end ); // displaying reservation after has been added to DB
+        alertify.success("You added reservation successfully!");
+      } );
+    } else {
+      alertify.error("You can not make a reservation in this time!");
+    }
+  }
+
+  // Display events in Calendar
+  displayCalendarEvents( startTime: Date, endTime: Date ): void {
+    this.calendarEvents = this.calendarEvents.concat({ // add new event data must create new array
+      title: 'New Event',
+      start: startTime,
+      end:  endTime,
+      allDay: false
+    });
   }
 
 }

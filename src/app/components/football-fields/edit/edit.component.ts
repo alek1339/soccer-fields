@@ -19,16 +19,17 @@ export class EditComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
+  id: string = "";
   editForm: FormGroup;
   field: IField = new Field();
 
   ngOnInit() {
-    let id = "";
+    this.id = "";
     this.route.params.subscribe(params => {
-      id = params["id"];
+      this.id = params["id"];
     });
 
-    this.fieldService.getById(id).subscribe(data => {
+    this.fieldService.getById(this.id).subscribe(data => {
       this.field = new Field(data);
 
       this.editForm = new FormGroup({
@@ -47,16 +48,17 @@ export class EditComponent implements OnInit {
   }
 
   onSubmit() {
-    let id = "";
+    this.id = "";
     this.route.params.subscribe(params => {
-      id = params["id"];
+      this.id = params["id"];
     });
 
-    this.fieldService.edit(id, this.editForm.value);
+    this.fieldService.edit(this.id, this.editForm.value);
   }
 
   deleteForm() {
-    this.fieldService.deleteField();
+    console.log(this.id);
+    this.fieldService.deleteField(this.id);
   }
 
   onAddPicture() {

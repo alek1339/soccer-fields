@@ -1,43 +1,28 @@
 import * as _ from "lodash";
+/*
+* @bookFrom - starting date with local time for a field reservation
+* @bookTo - ending date with local time for a field reservation
+* @allReservations array of reservations from calendar
+*/
 
-export function ValidateBookForm({ bookFrom, bookTo }) {
-  let reservations = [
-    {
-      reservedFrom: 10,
-      reservedTo: 11
-    },
-    {
-      reservedFrom: 12,
-      reservedTo: 13
-    }
-  ];
+export function ValidateBookForm( bookFrom: Date, bookTo: Date , allReservations: any[]) {
+  const reservations = allReservations;
+  const startHourCurrRes = bookFrom.getTime();
+  const endHourCurrRes = bookTo.getTime();
 
-  return checkFieldAvailability(bookFrom, bookTo, reservations);
+  // Check for wotking hours
+  if (bookFrom.getHours() < 7 || bookTo.getHours() > 23 || bookFrom.getHours() >= bookTo.getHours()) return false;
 
-  function checkFieldAvailability(bookFrom, bookTo, reservations) {
-    for (let i = 0; i < reservations.length; i++) {
-      const reservation = reservations[i];
-      if (
-        _.inRange(
-          bookFrom,
-          reservation.reservedFrom - 1,
-          reservation.reservedTo + 1
-        ) &&
-        _.inRange(
-          bookTo,
-          reservation.reservedFrom + 1,
-          reservation.reservedTo + 1
-        )
-      ) {
-        // There is already a reservation in this hour
-        return false;
-      }
-    }
-    // Check for correct hours
-    if (bookFrom < 7 || bookTo > 23 || bookFrom >= bookTo) {
-      return false;
+  // Check for existing reservations
+  reservations.forEach( reservation => {
+    const startHourExistRes = new Date(reservation.startingTime).getTime();
+    const endHourExistRes = new Date(reservation.endTime).getTime();
+
+    if (_.inRange(startHourCurrRes, startHourExistRes, endHourExistRes) && _.inRange(endHourCurrRes, startHourExistRes, endHourExistRes)) {
+      return false; // Such a reservation exist
     }
 
-    return true;
-  }
+  } ); //end forEach
+
+  return true;
 }

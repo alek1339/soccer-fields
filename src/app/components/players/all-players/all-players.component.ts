@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { Player } from "@angular/core/src/render3/interfaces/player";
+import { IPlayer } from "../../../models/players/player.model";
 
 import { PlayersService } from "../../../services/players.service";
 import { Auth } from "../../../core/auth";
@@ -10,11 +10,12 @@ import { Auth } from "../../../core/auth";
   styleUrls: ["./all-players.component.css"]
 })
 export class AllPlayersComponent implements OnInit {
-  constructor(public playersService: PlayersService, public auth: Auth) {}
+  constructor(public auth: Auth, public playersService: PlayersService) {}
 
-  players: Player[] = [];
+  players: IPlayer[] = [];
   ngOnInit() {
     this.playersService.getAll().subscribe(data => {
+      console.log(data);
       this.players = data;
     });
   }

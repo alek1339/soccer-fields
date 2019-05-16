@@ -18,6 +18,7 @@ import { BookComponent } from "./components/football-fields/book/book.component"
 
 import { AdminGuard } from "./guards/admin.guard";
 import { LoggedGuard } from "./guards/logged.guard";
+import { EditPlayersComponent } from "./components/players/edit-players/edit-players.component";
 
 const routes: Routes = [
   { path: "", component: WellcomeComponent },
@@ -28,6 +29,11 @@ const routes: Routes = [
   {
     path: "players/create",
     component: CreatePlayerComponent,
+    canActivate: [AdminGuard]
+  },
+  {
+    path: "players/edit/:id",
+    component: EditPlayersComponent,
     canActivate: [AdminGuard]
   },
   {

@@ -4,6 +4,9 @@ import { ActivatedRoute } from "@angular/router";
 
 import { Router } from "@angular/router";
 
+import { IField } from "../models/fields/football-field";
+import { Field } from "../models/fields/field.model";
+
 import { AppConf } from "../core/conf";
 
 import alertify from "alertifyjs";
@@ -19,13 +22,7 @@ export class FieldService {
 
   private uri = AppConf.server + AppConf.api.fields;
 
-  private field = {
-    name: "",
-    address: "",
-    tel: "",
-    openFrom: "",
-    openTo: ""
-  };
+  private field: IField = new Field();
 
   getAll(): Observable<any> {
     return this.http.get(`${this.uri}/`);
@@ -39,7 +36,7 @@ export class FieldService {
     this.field = field;
 
     this.http.post(`${this.uri}/add`, this.field).subscribe(res => {
-      alertify.success("Your added field successfully!");
+      alertify.success("You added field successfully!");
       this.router.navigate(["/football-fields/all"]);
     });
   }
@@ -47,35 +44,27 @@ export class FieldService {
   edit(id, field) {
     this.field = field;
     this.http.put(`${this.uri}/${id}`, this.field).subscribe(res => {
-      alertify.success("Your edited field successfully!");
+      alertify.success("You edited field successfully!");
       // I have to find why this doesn't work
       this.router.navigate(["/football-fields/all"]);
     });
     // this.router.navigate(["/football-fields/all"]);
   }
 
-  deleteField() {
-    this.http.post(`${this.uri}/delete/`, this.field).subscribe(res => {
-      this.router.navigate(["/football-fields/all"]);
-    });
-
+  deleteField(fieldId) {
+    let id = fieldId;
     alertify.confirm(
       "Confirm Title",
       "Do you want to delete ?",
       () => {
-        const id: string = this.route.snapshot.params.id;
-        this.http
-          .post(`${this.uri}/delete/${id}`, this.field)
-          .subscribe(res => {
-            alertify.success("You deleted the field!");
-            this.router.navigate(["/football-fields/all"]);
-          });
+        this.http.delete(`${this.uri}/${id}`).subscribe(res => {
+          alertify.success("You deleted the field!");
+          this.router.navigate(["/football-fields/all"]);
+        });
       },
       function() {
         alertify.error("Cancel");
       }
     );
-
-    this.router.navigate(["/football-fields/all"]);
   }
 }
