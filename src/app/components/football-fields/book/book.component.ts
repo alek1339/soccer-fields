@@ -1,21 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-
 import { FormGroup, FormControl, Validators, FormArray } from "@angular/forms";
-
 import { FieldService } from "../../../services/field.service";
-import { ReservationService } from "../../../services/reservations.service";
 import { Field } from "src/app/models/fields/field.model";
 import { IField } from "src/app/models/fields/football-field";
-
 import { IReservation } from "../../../models/reservations/resetvations";
-import { Reservation } from "../../../models/reservations/reservations.model";
-
-import { Auth } from "../../../core/auth";
-
-import { ValidateBookForm } from "../../../validators/book-form.validator";
-
-import alertify from "alertifyjs";
 
 @Component({
   selector: "app-book",
@@ -25,9 +14,7 @@ import alertify from "alertifyjs";
 export class BookComponent implements OnInit {
   constructor(
     private fieldService: FieldService,
-    private route: ActivatedRoute,
-    private reservationService: ReservationService,
-    private auth: Auth
+    private route: ActivatedRoute
   ) {}
 
   // startHour and endHour add to the date in calendar component
@@ -40,7 +27,7 @@ export class BookComponent implements OnInit {
   fieldId: string = "";
   reservations: IReservation[];
 
-  availableHours = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
+  availableHours = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
 
   ngOnInit() {
     this.route.params.subscribe(params => {

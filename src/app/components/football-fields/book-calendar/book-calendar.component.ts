@@ -19,8 +19,6 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class BookCalendarComponent implements OnInit {
 
-  @ViewChild('calendar') calendarComponent: FullCalendarComponent; // the #calendar in the template
-
   @Input() startHour: number ;
   @Input() endHour: number ;
 
@@ -44,7 +42,8 @@ export class BookCalendarComponent implements OnInit {
 
     this.reservationService.getById(this.fieldId).subscribe(data => {
       this.reservations = data;
-      console.log(data);
+
+      // Populating calendar with existing reservations
       data.map( reservation => {
         const startTime = new Date(reservation.startingTime);
         const endTime = new Date(reservation.endTime);
@@ -63,8 +62,6 @@ export class BookCalendarComponent implements OnInit {
       startTime.setHours( this.startHour );
       endTime.setHours( this.endHour );
 
-      this.displayCalendarEvents( startTime, endTime); // need to be async after reservation is added to data base
-
       // add reservation to database
       if (startTime && endTime) {
         this.submitReservation( startTime, endTime, this.fieldId );
@@ -74,7 +71,7 @@ export class BookCalendarComponent implements OnInit {
   }
 
   // add reservation to database
-  submitReservation( start: any, end: any , fId: string ) {
+  submitReservation( start: Date, end: Date , fId: string ) {
     if (ValidateBookForm( start , end , this.reservations)) {
       const reservation = {
         reservedField: fId,
@@ -82,7 +79,10 @@ export class BookCalendarComponent implements OnInit {
         endTime: end,
         reservingUserId: this.auth.getUserId()
       };
-      this.reservationService.add(reservation);
+      this.reservationService.add(reservation).subscribe( res => {
+        this.displayCalendarEvents( start, end ); // displaying reservation after has been added to DB
+        alertify.success("You added reservation successfully!");
+      } );
     } else {
       alertify.error("You can not make a reservation in this time!");
     }

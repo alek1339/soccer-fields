@@ -7,7 +7,6 @@ import * as _ from "lodash";
 
 export function ValidateBookForm( bookFrom: Date, bookTo: Date , allReservations: any[]) {
   const reservations = allReservations;
-  console.log(reservations);
   const startHourCurrRes = bookFrom.getTime();
   const endHourCurrRes = bookTo.getTime();
 
