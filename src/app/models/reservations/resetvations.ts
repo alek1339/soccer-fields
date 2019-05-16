@@ -1,6 +1,6 @@
 export interface IReservation {
   reservedField: string;
-  startingTime: string;
-  endTime: string;
+  startingTime: Date;
+  endTime: Date;
   reservingUserId: string;
 }

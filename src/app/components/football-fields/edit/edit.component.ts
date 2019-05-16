@@ -24,7 +24,6 @@ export class EditComponent implements OnInit {
   field: IField = new Field();
 
   ngOnInit() {
-    this.id = "";
     this.route.params.subscribe(params => {
       this.id = params["id"];
     });
@@ -48,7 +47,6 @@ export class EditComponent implements OnInit {
   }
 
   onSubmit() {
-    this.id = "";
     this.route.params.subscribe(params => {
       this.id = params["id"];
     });
@@ -56,8 +54,7 @@ export class EditComponent implements OnInit {
     this.fieldService.edit(this.id, this.editForm.value);
   }
 
-  deleteForm() {
-    console.log(this.id);
+  deleteField() {
     this.fieldService.deleteField(this.id);
   }
 

@@ -2,8 +2,8 @@ import { IReservation } from "./resetvations";
 
 export class Reservation implements IReservation {
   reservedField: string;
-  startingTime: string;
-  endTime: string;
+  startingTime: Date;
+  endTime: Date;
   reservingUserId: string;
   constructor(reservation?) {
     reservation = reservation || {};

@@ -2,11 +2,10 @@ import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
 
-import { Player } from "../models/players/player";
-
 import { Router } from "@angular/router";
 
 import { IPlayer } from "../models/players/player.model";
+import { Player } from "../models/players/player";
 
 import { AppConf } from "../core/conf";
 

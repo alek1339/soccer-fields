@@ -65,7 +65,7 @@ router.delete("/:id", (req, res) => {
       id: todo._id
     };
     // return res.status(200).send(response);
-    res.json("Done");
+    res.json(response);
   });
 });
 

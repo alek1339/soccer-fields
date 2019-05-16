@@ -10,7 +10,7 @@
         <br />
         <button
           *ngIf="auth.isAdmin()"
-          routerLink="/players/edit/{{ player._id }}"
+          [routerLink]="['/players/edit/', player._id]"
           class="btn btn-success"
         >
           Edit!

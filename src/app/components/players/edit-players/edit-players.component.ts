@@ -55,7 +55,6 @@ export class EditPlayersComponent implements OnInit {
   }
 
   delete() {
-    console.log(this.id);
     this.playersService.deletePlayer(this.id);
   }
 }
