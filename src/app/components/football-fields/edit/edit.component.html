@@ -25,12 +25,13 @@
       >
       <input
         type="text"
-        placeholder="Telephone"
+        placeholder="Phone"
         class="form-control"
-        formControlName="tel"
+        formControlName="phone"
       />
-      <span *ngIf="!editForm.get('tel').valid && editForm.get('tel').touched"
-        >Please enter a valid telephone!</span
+      <span
+        *ngIf="!editForm.get('phone').valid && editForm.get('phone').touched"
+        >Please enter a valid phone!</span
       >
       <label for="open_from" class="badge badge-secondary">Open From:</label>
       <input
@@ -61,9 +62,9 @@
           <input type="text" class="form-control" [formControlName]="i" />
         </div>
       </div>
-      <button type="submit" class="btn btn-info">Save</button>
-      <button class="btn btn-danger" type="button" (click)="deleteField()">
-        Delete
+      <button type="submit" class="btn btn-info">Edit</button>
+      <button (click)="onCreate()" class="btn btn-info" type="button">
+        Create
       </button>
     </form>
   </div>

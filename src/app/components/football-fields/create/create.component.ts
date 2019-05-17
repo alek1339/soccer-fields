@@ -21,7 +21,7 @@ export class CreateComponent implements OnInit {
         Validators.minLength(5),
         Validators.maxLength(40)
       ]),
-      tel: new FormControl(null, Validators.required),
+      phone: new FormControl(null, Validators.required),
       pictures: new FormArray([]),
       openFrom: new FormControl("07:00"),
       openTo: new FormControl("23:00")

@@ -44,9 +44,10 @@ export class FieldService {
   edit(id, field) {
     this.field = field;
     this.http.put(`${this.uri}/${id}`, this.field).subscribe(res => {
+      console.log(res);
       alertify.success("You edited field successfully!");
       // I have to find why this doesn't work
-      this.router.navigate(["/football-fields/all"]);
+      this.router.navigate([`/football-fields/book/` + res]);
     });
     // this.router.navigate(["/football-fields/all"]);
   }

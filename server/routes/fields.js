@@ -24,7 +24,7 @@ router.post("/add", (req, res) => {
     name: req.body.name,
     address: req.body.address,
     photos: req.body.pictures,
-    tel: req.body.tel,
+    phone: req.body.phone,
     openFrom: req.body.openFrom,
     openTo: req.body.openTo
   });
@@ -63,7 +63,7 @@ router.put("/:id", (req, res) => {
       console.log("Error:" + err);
     }
     // console.log("RESULT: " + result);
-    res.json("Done");
+    res.json(id);
   });
 });
 

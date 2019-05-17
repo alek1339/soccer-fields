@@ -2,7 +2,7 @@
 export interface IField {
   name: string;
   address: string;
-  tel: string;
+  phone: string;
   openFrom: string;
   openTo: string;
 }

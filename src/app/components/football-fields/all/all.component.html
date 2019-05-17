@@ -4,10 +4,10 @@
       <div class="col-lg-6">
         <!-- <h2>Find Field:</h2> -->
         <ul>
-          <li *ngFor="let field of fields" class="mb-3">
+          <li *ngFor="let field of fields; let i = index" class="mb-3">
             <h3>{{ field.name }}</h3>
             <p>Address: {{ field.address }}</p>
-            <p>Tel: {{ field.tel }}</p>
+            <p>Phone: {{ field.phone }}</p>
             <p>Open From: {{ field.openFrom }} To: {{ field.openTo }}</p>
             <div *ngIf="field.photos">
               <div *ngFor="let pic of field.photos" class="block">
@@ -22,14 +22,27 @@
             </button>
             <button
               *ngIf="auth.isAdmin()"
-              routerLink="/football-fields/edit/{{ field._id }}"
+              [routerLink]="['/football-fields/new/', field._id]"
               class="btn btn-success"
             >
               Edit!
             </button>
-            <hr />
+            <button
+              class="btn btn-danger"
+              type="button"
+              (click)="deleteField(field._id, i)"
+            >
+              Delete
+            </button>
           </li>
+          <hr />
         </ul>
+        <button
+          [routerLink]="['/football-fields/new/']"
+          class="btn btn-primary m-5"
+        >
+          Create Field
+        </button>
       </div>
     </div>
   </div>

@@ -30,12 +30,13 @@
     >
     <input
       type="text"
-      placeholder="Telephone"
+      placeholder="phone"
       class="form-control"
-      formControlName="tel"
+      formControlName="phone"
     />
-    <span *ngIf="!createForm.get('tel').valid && createForm.get('tel').touched"
-      >Please enter a valid telephone!</span
+    <span
+      *ngIf="!createForm.get('phone').valid && createForm.get('phone').touched"
+      >Please enter a valid phone!</span
     >
     <label for="open_from" class="badge badge-secondary">Open From:</label>
     <input

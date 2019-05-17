@@ -17,17 +17,18 @@ import { AdminPanelComponent } from "./components/admin/admin-panel/admin-panel.
 import { BookComponent } from "./components/football-fields/book/book.component";
 
 import { AdminGuard } from "./guards/admin.guard";
-import { LoggedGuard } from "./guards/logged.guard";
+import { RegAndLoggedGuard } from "./guards/regAndLogged.guard";
 import { EditPlayersComponent } from "./components/players/edit-players/edit-players.component";
-
+import { LoggedGuard } from "./guards/logged.guard";
 const routes: Routes = [
   { path: "", component: WellcomeComponent },
   {
     path: "players/all",
-    component: AllPlayersComponent
+    component: AllPlayersComponent,
+    canActivate: [LoggedGuard]
   },
   {
-    path: "players/create",
+    path: "players/new",
     component: CreatePlayerComponent,
     canActivate: [AdminGuard]
   },
@@ -44,22 +45,34 @@ const routes: Routes = [
   {
     path: "user/register",
     component: RegistrationComponent,
-    canActivate: [LoggedGuard]
+    canActivate: [RegAndLoggedGuard]
   },
-  { path: "user/login", component: LoginComponent, canActivate: [LoggedGuard] },
   {
-    path: "football-fields/create",
-    component: CreateComponent,
+    path: "user/login",
+    component: LoginComponent,
+    canActivate: [RegAndLoggedGuard]
+  },
+  {
+    path: "football-fields/new",
+    component: EditComponent,
     canActivate: [AdminGuard]
   },
   {
-    path: "football-fields/edit/:id",
+    path: "football-fields/new/:id",
     component: EditComponent,
     canActivate: [AdminGuard]
   },
   // { path: "football-fields/edit", component: EditComponent },
-  { path: "football-fields/all", component: AllComponent },
-  { path: "football-fields/book/:id", component: BookComponent },
+  {
+    path: "football-fields/all",
+    component: AllComponent,
+    canActivate: [LoggedGuard]
+  },
+  {
+    path: "football-fields/book/:id",
+    component: BookComponent,
+    canActivate: [LoggedGuard]
+  },
   {
     path: "admin/reservations",
     component: ReservationsComponent,

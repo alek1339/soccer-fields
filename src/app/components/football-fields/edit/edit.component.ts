@@ -25,7 +25,9 @@ export class EditComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      this.id = params["id"];
+      if (params["id"] != null) {
+        this.id = params["id"];
+      }
     });
 
     this.fieldService.getById(this.id).subscribe(data => {
@@ -38,7 +40,7 @@ export class EditComponent implements OnInit {
           Validators.minLength(5),
           Validators.maxLength(40)
         ]),
-        tel: new FormControl(this.field.tel, Validators.required),
+        phone: new FormControl(this.field.phone, Validators.required),
         pictures: new FormArray([]),
         openFrom: new FormControl("07:00"),
         openTo: new FormControl("23:00")
@@ -54,12 +56,12 @@ export class EditComponent implements OnInit {
     this.fieldService.edit(this.id, this.editForm.value);
   }
 
-  deleteField() {
-    this.fieldService.deleteField(this.id);
-  }
-
   onAddPicture() {
     const control = new FormControl(null, Validators.required);
     (<FormArray>this.editForm.get("pictures")).push(control);
+  }
+
+  onCreate() {
+    this.fieldService.add(this.editForm.value);
   }
 }
